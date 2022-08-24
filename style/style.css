@@ -22,7 +22,7 @@
 .desk {
     width: 150px;
     height: 215px;
-    background-image: url(/assets/mythicCardBackground.png);
+    background-image: url(../assets/mythicCardBackground.png);
 }
 
 .last-card {

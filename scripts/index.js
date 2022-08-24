@@ -91,8 +91,6 @@ const blueCardsData = [
 },
 ]
 
- 
-
 const brownCardsAssets = {
     brown1: './assets/MythicCards/brown/brown1.png',
     brown2: './assets/MythicCards/brown/brown2.png',
@@ -245,8 +243,6 @@ const brownCardsData = [
       color:'brown'
     },
   ]
-
- 
 
 const greenCardsAssets = {
     green1: './assets/MythicCards/green/green1.png',
@@ -465,46 +461,74 @@ const ancientsData = [
       },
     },
   ]
-console.log(ancientsData);
 
 const lastCard = document.querySelector(".last-card");
 
-///генерировать рандом для карт, этап 1  (генерирует массив)
-const greenRandom1 = _.shuffle(_.range(1,18)).slice(0, ancientsData[0].firstStage.greenCards)
+
+const greenCount = ancientsData[0].firstStage.greenCards + ancientsData[0].secondStage.greenCards + ancientsData[0].thirdStage.greenCards;
+
+const brownCount = ancientsData[0].firstStage.brownCards + ancientsData[0].secondStage.brownCards + ancientsData[0].thirdStage.brownCards;
+
+const blueCount = ancientsData[0].firstStage.blueCards + ancientsData[0].secondStage.blueCards + ancientsData[0].thirdStage.blueCards;
+
+///генерировать рандом для карт  (генерирует массив)
+const greenRandom1 = _.shuffle(_.range(1,18)).slice(0, greenCount)
 console.log(greenRandom1)
 
-const blueRandom1 = _.shuffle(_.range(1,12)).slice(0, ancientsData[0].firstStage.blueCards)
+const blueRandom1 = _.shuffle(_.range(1,12)).slice(0, blueCount)
 console.log(blueRandom1)
 
-const brownRandom1 = _.shuffle(_.range(1,21)).slice(0, ancientsData[0].firstStage.brownCards)
+const brownRandom1 = _.shuffle(_.range(1,21)).slice(0, brownCount)
 console.log(brownRandom1)
 
-///генерировать рандом для карт, этап 2  (генерирует массив)
-const greenRandom2 = _.shuffle(_.range(1,18)).slice(0, ancientsData[0].secondStage.greenCards)
-console.log(greenRandom2)
+const brownRandomImg = []
+const greenRandomImg = []
+const blueRandomImg = []
+function addToTheGroupBrownCards (brownRandom1) {
+    let indexBrown;
+    for (indexBrown = 0; indexBrown < brownRandom1.length; indexBrown++) {
+      brownRandomImg.push(`./assets/MythicCards/brown/brown${brownRandom1[indexBrown]}.png`);
+    }
+  }
+  addToTheGroupBrownCards(brownRandom1)
 
-const blueRandom2 = _.shuffle(_.range(1,12)).slice(0, ancientsData[0].secondStage.blueCards)
-console.log(blueRandom2)
+function addToTheGroupGreenCards (greenRandom1) {
+  let indexGreen; 
+    for (indexGreen = 0; indexGreen < greenRandom1.length; indexGreen++) {
+      greenRandomImg.push(`./assets/MythicCards/green/green${greenRandom1[indexGreen]}.png`);
+    }
+}
+addToTheGroupGreenCards(greenRandom1)
 
-const brownRandom2 = _.shuffle(_.range(1,21)).slice(0, ancientsData[0].secondStage.brownCards)
-console.log(brownRandom2)
+function addToTheGroupBlueCards (blueRandom1) {
+  let indexBlue; 
+  for (indexBlue = 0; indexBlue < blueRandom1.length; indexBlue++) {
+    blueRandomImg.push(`./assets/MythicCards/green/green${blueRandom1[indexBlue]}.png`);
+  }
+}
+addToTheGroupBlueCards(blueRandom1)
 
-///генерировать рандом для карт, этап 3  (генерирует массив)
-const greenRandom3 = _.shuffle(_.range(1,18)).slice(0, ancientsData[0].thirdStage.greenCards)
-console.log(greenRandom3)
 
-const blueRandom3 = _.shuffle(_.range(1,12)).slice(0, ancientsData[0].thirdStage.blueCards)
-console.log(blueRandom3)
+console.log(brownRandomImg, greenRandomImg, blueRandomImg)
 
-const brownRandom3 = _.shuffle(_.range(1,21)).slice(0, ancientsData[0].thirdStage.brownCards)
-console.log(brownRandom3)
+
+///добавление в колоду
+let desk = [];
+
+brownRandomImg.forEach(element => desk.push(element));
+greenRandomImg.forEach(element => desk.push(element));
+blueRandomImg.forEach(element => desk.push(element));
+console.log(desk)
+
+
 
 ///вывод на экран карты
 function setCard(greenRandom1) {
     const img = new Image();
     img.src = "./assets/MythicCards/green/green18.png";
     img.onload = () => {
-        lastCard.style.backgroundImage = "url('./assets/MythicCards/green/green18.png')";
+        // lastCard.style.backgroundImage = "url('./assets/MythicCards/green/green18.png')";
+        lastCard.style.backgroundImage = `url(${desk[15]})`;
     };
 }
 
