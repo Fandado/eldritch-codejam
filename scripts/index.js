@@ -463,6 +463,7 @@ const ancientsData = [
   ]
 console.log(ancientsData)
 const lastCard = document.querySelector(".last-card");
+const deskCards = document.querySelector(".desk");
 
 
 const greenCount = ancientsData[0].firstStage.greenCards + ancientsData[0].secondStage.greenCards + ancientsData[0].thirdStage.greenCards;
@@ -545,24 +546,33 @@ function createStages (brownRandomImg, blueRandomImg, greenRandomImg) {
 createStages (brownRandomImg, blueRandomImg, greenRandomImg)
 console.log(firstStage, secondStage, thirdStage)
 
-
+const firstStageRandom = _.shuffle(firstStage);
+const secondStageRandom = _.shuffle(secondStage);
+const thirdStageRandom = _.shuffle(thirdStage);
 
 ///добавление в колоду
 let desk = [];
 
-brownRandomImg.forEach(element => desk.push(element));
-greenRandomImg.forEach(element => desk.push(element));
-blueRandomImg.forEach(element => desk.push(element));
+thirdStageRandom.forEach(element => desk.push(element));
+secondStageRandom.forEach(element => desk.push(element));
+firstStageRandom.forEach(element => desk.push(element));
 
+console.log(`Колода: ${desk}`)
 
 ///вывод на экран карты
-function setCard(greenRandom) {
+function setCard() {
     const img = new Image();
     img.src = "./assets/MythicCards/green/green18.png";
     img.onload = () => {
         // lastCard.style.backgroundImage = "url('./assets/MythicCards/green/green18.png')";
-        lastCard.style.backgroundImage = `url(${desk[15]})`;
+        lastCard.style.backgroundImage = `url(${desk[desk.length - 1]})`;
     };
+    console.log(desk);
+    desk.pop();
+    console.log(desk);
 }
 
-setCard(greenRandom);
+// setCard();
+
+
+deskCards.addEventListener("click", setCard);

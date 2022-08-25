@@ -23,6 +23,7 @@
     width: 150px;
     height: 215px;
     background-image: url(../assets/mythicCardBackground.png);
+    cursor: pointer;
 }
 
 .last-card {
