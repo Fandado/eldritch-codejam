@@ -565,11 +565,9 @@ function setCard() {
     img.src = "./assets/MythicCards/green/green18.png";
     img.onload = () => {
         // lastCard.style.backgroundImage = "url('./assets/MythicCards/green/green18.png')";
-        lastCard.style.backgroundImage = `url(${desk[desk.length - 1]})`;
+        lastCard.style.backgroundImage = `url(${desk.pop()})`;
     };
-    console.log(desk);
-    desk.pop();
-    console.log(desk);
+
 }
 
 // setCard();
