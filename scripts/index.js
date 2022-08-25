@@ -246,8 +246,6 @@ const brownCardsData = [
     },
   ]
 
- 
-
 const greenCardsAssets = {
     green1: './assets/MythicCards/green/green1.png',
     green2: './assets/MythicCards/green/green2.png',
