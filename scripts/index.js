@@ -461,7 +461,7 @@ const ancientsData = [
       },
     },
   ]
-
+console.log(ancientsData)
 const lastCard = document.querySelector(".last-card");
 
 
@@ -472,44 +472,79 @@ const brownCount = ancientsData[0].firstStage.brownCards + ancientsData[0].secon
 const blueCount = ancientsData[0].firstStage.blueCards + ancientsData[0].secondStage.blueCards + ancientsData[0].thirdStage.blueCards;
 
 ///генерировать рандом для карт  (генерирует массив)
-const greenRandom1 = _.shuffle(_.range(1,18)).slice(0, greenCount)
-console.log(greenRandom1)
+const greenRandom = _.shuffle(_.range(1,18)).slice(0, greenCount)
 
-const blueRandom1 = _.shuffle(_.range(1,12)).slice(0, blueCount)
-console.log(blueRandom1)
+const blueRandom = _.shuffle(_.range(1,12)).slice(0, blueCount)
 
-const brownRandom1 = _.shuffle(_.range(1,21)).slice(0, brownCount)
-console.log(brownRandom1)
+const brownRandom = _.shuffle(_.range(1,21)).slice(0, brownCount)
 
 const brownRandomImg = []
 const greenRandomImg = []
 const blueRandomImg = []
-function addToTheGroupBrownCards (brownRandom1) {
+function addToTheGroupBrownCards (brownRandom) {
     let indexBrown;
-    for (indexBrown = 0; indexBrown < brownRandom1.length; indexBrown++) {
-      brownRandomImg.push(`./assets/MythicCards/brown/brown${brownRandom1[indexBrown]}.png`);
+    for (indexBrown = 0; indexBrown < brownRandom.length; indexBrown++) {
+      brownRandomImg.push(`./assets/MythicCards/brown/brown${brownRandom[indexBrown]}.png`);
     }
   }
-  addToTheGroupBrownCards(brownRandom1)
+  addToTheGroupBrownCards(brownRandom)
 
-function addToTheGroupGreenCards (greenRandom1) {
+function addToTheGroupGreenCards (greenRandom) {
   let indexGreen; 
-    for (indexGreen = 0; indexGreen < greenRandom1.length; indexGreen++) {
-      greenRandomImg.push(`./assets/MythicCards/green/green${greenRandom1[indexGreen]}.png`);
+    for (indexGreen = 0; indexGreen < greenRandom.length; indexGreen++) {
+      greenRandomImg.push(`./assets/MythicCards/green/green${greenRandom[indexGreen]}.png`);
     }
 }
-addToTheGroupGreenCards(greenRandom1)
+addToTheGroupGreenCards(greenRandom)
 
-function addToTheGroupBlueCards (blueRandom1) {
+function addToTheGroupBlueCards (blueRandom) {
   let indexBlue; 
-  for (indexBlue = 0; indexBlue < blueRandom1.length; indexBlue++) {
-    blueRandomImg.push(`./assets/MythicCards/green/green${blueRandom1[indexBlue]}.png`);
+  for (indexBlue = 0; indexBlue < blueRandom.length; indexBlue++) {
+    blueRandomImg.push(`./assets/MythicCards/blue/blue${blueRandom[indexBlue]}.png`);
   }
 }
-addToTheGroupBlueCards(blueRandom1)
+addToTheGroupBlueCards(blueRandom)
 
 
 console.log(brownRandomImg, greenRandomImg, blueRandomImg)
+
+let firstStage = [];
+let secondStage = [];
+let thirdStage = [];
+
+///создание этапов
+function createStages (brownRandomImg, blueRandomImg, greenRandomImg) {
+  for (let i = 0; i < ancientsData[0].firstStage.brownCards; i++) {
+    firstStage.push(brownRandomImg.pop())
+  }
+  for (let i = 0; i < ancientsData[0].firstStage.blueCards; i++) {
+    firstStage.push(blueRandomImg.pop())
+  }
+  for (let i = 0; i < ancientsData[0].firstStage.greenCards; i++) {
+    firstStage.push(greenRandomImg.pop())
+  }
+  for (let i = 0; i < ancientsData[0].secondStage.brownCards; i++) {
+    secondStage.push(brownRandomImg.pop())
+  }
+  for (let i = 0; i < ancientsData[0].secondStage.blueCards; i++) {
+    secondStage.push(blueRandomImg.pop())
+  }
+  for (let i = 0; i < ancientsData[0].secondStage.greenCards; i++) {
+    secondStage.push(greenRandomImg.pop())
+  }
+  for (let i = 0; i < ancientsData[0].thirdStage.brownCards; i++) {
+    thirdStage.push(brownRandomImg.pop())
+  }
+  for (let i = 0; i < ancientsData[0].thirdStage.blueCards; i++) {
+    thirdStage.push(blueRandomImg.pop())
+  }
+  for (let i = 0; i < ancientsData[0].thirdStage.greenCards; i++) {
+    thirdStage.push(greenRandomImg.pop())
+  }
+}
+createStages (brownRandomImg, blueRandomImg, greenRandomImg)
+console.log(firstStage, secondStage, thirdStage)
+
 
 
 ///добавление в колоду
@@ -518,12 +553,10 @@ let desk = [];
 brownRandomImg.forEach(element => desk.push(element));
 greenRandomImg.forEach(element => desk.push(element));
 blueRandomImg.forEach(element => desk.push(element));
-console.log(desk)
-
 
 
 ///вывод на экран карты
-function setCard(greenRandom1) {
+function setCard(greenRandom) {
     const img = new Image();
     img.src = "./assets/MythicCards/green/green18.png";
     img.onload = () => {
@@ -532,4 +565,4 @@ function setCard(greenRandom1) {
     };
 }
 
-setCard(greenRandom1);
+setCard(greenRandom);
