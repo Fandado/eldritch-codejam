@@ -53,3 +53,7 @@
 .desk-container {
     margin-top: 3%;
 }
+
+.chosenAncient {
+    border: 2px solid red;
+}

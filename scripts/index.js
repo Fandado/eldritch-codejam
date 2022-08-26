@@ -461,17 +461,40 @@ const ancientsData = [
       },
     },
   ]
-console.log(ancientsData)
+
 const lastCard = document.querySelector(".last-card");
 const deskCards = document.querySelector(".desk");
+const ancientsContainer = document.querySelector(".ancients-container");
 
+let selectedDiv;
+let ancientSelected;
 
-const greenCount = ancientsData[0].firstStage.greenCards + ancientsData[0].secondStage.greenCards + ancientsData[0].thirdStage.greenCards;
+ancientsContainer.onclick = function(event) {
+  let target = event.target; 
+  highlight(target); 
 
-const brownCount = ancientsData[0].firstStage.brownCards + ancientsData[0].secondStage.brownCards + ancientsData[0].thirdStage.brownCards;
+};
 
-const blueCount = ancientsData[0].firstStage.blueCards + ancientsData[0].secondStage.blueCards + ancientsData[0].thirdStage.blueCards;
+function highlight(div) {
+  if (selectedDiv) { 
+    selectedDiv.classList.remove('chosenAncient');
+  }
+  selectedDiv = div;
+  selectedDiv.classList.add('chosenAncient'); 
+}
 
+const crds = document.querySelectorAll('.ancient-card')
+
+function chooseAncient (i) {
+  ancientSelected = ancientsData[i];
+  console.log(ancientSelected);
+  
+const greenCount = ancientSelected.firstStage.greenCards + ancientSelected.secondStage.greenCards + ancientSelected.thirdStage.greenCards;
+
+const brownCount = ancientSelected.firstStage.brownCards + ancientSelected.secondStage.brownCards + ancientSelected.thirdStage.brownCards;
+
+const blueCount = ancientSelected.firstStage.blueCards + ancientSelected.secondStage.blueCards + ancientSelected.thirdStage.blueCards;
+console.log(greenCount, blueCount, brownCount)
 ///генерировать рандом для карт  (генерирует массив)
 const greenRandom = _.shuffle(_.range(1,18)).slice(0, greenCount)
 
@@ -515,36 +538,36 @@ let thirdStage = [];
 
 ///создание этапов
 function createStages (brownRandomImg, blueRandomImg, greenRandomImg) {
-  for (let i = 0; i < ancientsData[0].firstStage.brownCards; i++) {
+  for (let i = 0; i < ancientSelected.firstStage.brownCards; i++) {
     firstStage.push(brownRandomImg.pop())
   }
-  for (let i = 0; i < ancientsData[0].firstStage.blueCards; i++) {
+  for (let i = 0; i < ancientSelected.firstStage.blueCards; i++) {
     firstStage.push(blueRandomImg.pop())
   }
-  for (let i = 0; i < ancientsData[0].firstStage.greenCards; i++) {
+  for (let i = 0; i < ancientSelected.firstStage.greenCards; i++) {
     firstStage.push(greenRandomImg.pop())
   }
-  for (let i = 0; i < ancientsData[0].secondStage.brownCards; i++) {
+  for (let i = 0; i < ancientSelected.secondStage.brownCards; i++) {
     secondStage.push(brownRandomImg.pop())
   }
-  for (let i = 0; i < ancientsData[0].secondStage.blueCards; i++) {
+  for (let i = 0; i < ancientSelected.secondStage.blueCards; i++) {
     secondStage.push(blueRandomImg.pop())
   }
-  for (let i = 0; i < ancientsData[0].secondStage.greenCards; i++) {
+  for (let i = 0; i < ancientSelected.secondStage.greenCards; i++) {
     secondStage.push(greenRandomImg.pop())
   }
-  for (let i = 0; i < ancientsData[0].thirdStage.brownCards; i++) {
+  for (let i = 0; i < ancientSelected.thirdStage.brownCards; i++) {
     thirdStage.push(brownRandomImg.pop())
   }
-  for (let i = 0; i < ancientsData[0].thirdStage.blueCards; i++) {
+  for (let i = 0; i < ancientSelected.thirdStage.blueCards; i++) {
     thirdStage.push(blueRandomImg.pop())
   }
-  for (let i = 0; i < ancientsData[0].thirdStage.greenCards; i++) {
+  for (let i = 0; i < ancientSelected.thirdStage.greenCards; i++) {
     thirdStage.push(greenRandomImg.pop())
   }
 }
 createStages (brownRandomImg, blueRandomImg, greenRandomImg)
-console.log(firstStage, secondStage, thirdStage)
+console.log(`First Stage: ${firstStage}\n Second Stage:${secondStage}\n Third Stage: ${thirdStage}`)
 
 const firstStageRandom = _.shuffle(firstStage);
 const secondStageRandom = _.shuffle(secondStage);
@@ -567,10 +590,20 @@ function setCard() {
         // lastCard.style.backgroundImage = "url('./assets/MythicCards/green/green18.png')";
         lastCard.style.backgroundImage = `url(${desk.pop()})`;
     };
-
+    console.log(desk);
 }
 
 // setCard();
 
 
 deskCards.addEventListener("click", setCard);
+
+}
+
+crds.forEach((c,i) => c.onclick = () => chooseAncient(i))
+
+console.log(ancientSelected);
+
+
+
+
